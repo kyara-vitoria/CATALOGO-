@@ -1,1312 +1,1004 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Catálogo de Perfumes | Perfumes Premium</title>
+
+    <meta name="description" content="Catálogo de perfumes premium. Escolha seu perfume e compre diretamente pelo WhatsApp.">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top, #3a2508 0%, #100b05 35%, #050505 75%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           CABEÇALHO
+        ========================= */
+
+        header {
+            text-align: center;
+            padding: 55px 20px 45px;
+            background:
+                linear-gradient(
+                    rgba(0,0,0,0.35),
+                    rgba(0,0,0,0.75)
+                ),
+                radial-gradient(circle, #6b420d, #080604 70%);
+            border-bottom: 1px solid #b88a32;
+        }
+
+        .logo {
+            font-family: Georgia, serif;
+            font-size: clamp(42px, 8vw, 82px);
+            letter-spacing: 8px;
+            color: #f7d37a;
+            text-shadow:
+                0 0 10px #b77a19,
+                0 0 30px rgba(255, 190, 70, 0.4);
+        }
+
+        .subtitulo {
+            margin-top: 10px;
+            color: #fff;
+            letter-spacing: 5px;
+            font-size: 14px;
+        }
+
+        .frase {
+            margin-top: 25px;
+            color: #e5c27a;
+            font-family: Georgia, serif;
+            font-style: italic;
+            font-size: 18px;
+        }
+
+        /* =========================
+           BUSCA
+        ========================= */
+
+        .controles {
+            max-width: 1200px;
+            margin: 30px auto 10px;
+            padding: 0 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .busca {
+            width: min(500px, 100%);
+            padding: 15px 20px;
+            border-radius: 30px;
+            border: 1px solid #c99b43;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .busca::placeholder {
+            color: #aaa;
+        }
+
+        .filtro {
+            padding: 15px 20px;
+            border-radius: 30px;
+            border: 1px solid #c99b43;
+            background: #111;
+            color: #f7d37a;
+            cursor: pointer;
+        }
+
+        /* =========================
+           CATÁLOGO
+        ========================= */
+
+        .catalogo {
+            max-width: 1250px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+        }
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .produto {
+            position: relative;
+            background:
+                linear-gradient(
+                    145deg,
+                    #211508,
+                    #090909 60%,
+                    #1b1207
+                );
+
+            border: 1px solid #74531d;
+            border-radius: 18px;
+            overflow: hidden;
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.6),
+                inset 0 0 30px rgba(197, 143, 42, 0.04);
+
+            transition: 0.35s ease;
+        }
+
+        .produto:hover {
+            transform: translateY(-8px);
+
+            border-color: #d8ad55;
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.8),
+                0 0 25px rgba(212, 161, 65, 0.18);
+        }
+
+        .imagem-container {
+            width: 100%;
+            height: 390px;
+            background:
+                radial-gradient(
+                    circle,
+                    #3a250c,
+                    #090909 75%
+                );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+        }
+
+        .imagem-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+            transition: transform 0.4s ease;
+        }
+
+        .produto:hover .imagem-container img {
+            transform: scale(1.04);
+        }
+
+        .informacoes {
+            padding: 22px;
+        }
+
+        .marca {
+            color: #b99751;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
 
-<title>Catálogo de Perfumes</title>
+        .nome {
+            font-family: Georgia, serif;
+            font-size: 23px;
+            color: #f8d986;
+            margin-bottom: 12px;
+        }
+
+        .descricao {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.5;
+            min-height: 42px;
+        }
+
+        .preco {
+            margin: 20px 0;
 
-<style>
+            font-size: 30px;
+            font-weight: bold;
+            color: #fff;
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+            text-shadow: 0 0 12px rgba(255, 206, 100, 0.25);
+        }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #080706;
-    color: #fff;
-}
+        .preco span {
+            font-size: 15px;
+            color: #c5a55e;
+        }
 
-/* ================= HEADER ================= */
+        /* =========================
+           BOTÃO WHATSAPP
+        ========================= */
 
-header {
-    min-height: 500px;
+        .btn-whatsapp {
+            display: block;
+            width: 100%;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+            text-align: center;
+            text-decoration: none;
 
-    text-align: center;
+            padding: 14px 18px;
 
-    background:
-        linear-gradient(
-            rgba(0,0,0,.45),
-            rgba(0,0,0,.85)
-        ),
-        url("imagens/ulric-de-varens.jpg");
+            border-radius: 10px;
 
-    background-size: cover;
-    background-position: center;
+            background: linear-gradient(
+                135deg,
+                #25D366,
+                #128C7E
+            );
 
-    position: relative;
-}
+            color: white;
 
-.hero {
-    max-width: 850px;
-    padding: 40px;
-}
+            font-size: 15px;
+            font-weight: bold;
 
-.hero-small {
-    color: #e7c36a;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    font-size: 14px;
-}
+            transition: 0.3s ease;
 
-.hero h1 {
-    font-family: Georgia, serif;
-    font-size: clamp(50px, 9vw, 95px);
-    letter-spacing: 5px;
-    text-transform: uppercase;
+            box-shadow:
+                0 5px 18px rgba(0,0,0,0.35);
+        }
 
-    margin: 20px 0;
+        .btn-whatsapp:hover {
+            transform: scale(1.03);
 
-    color: #f5d98b;
+            box-shadow:
+                0 8px 25px rgba(37, 211, 102, 0.25);
+        }
 
-    text-shadow:
-        0 3px 15px #000;
-}
+        /* =========================
+           RODAPÉ
+        ========================= */
 
-.hero p {
-    font-size: 18px;
-    line-height: 1.7;
-    color: #ddd;
-    margin-bottom: 30px;
-}
+        footer {
+            text-align: center;
+            padding: 40px 20px;
 
-/* ================= BOTÕES ================= */
+            border-top: 1px solid #70521e;
 
-.btn {
-    display: inline-block;
+            background: #050505;
 
-    padding: 14px 25px;
+            color: #888;
 
-    border-radius: 30px;
+            font-size: 13px;
+        }
 
-    border: 1px solid #d5ad54;
+        footer strong {
+            color: #d6b05c;
+        }
 
-    background:
-        linear-gradient(
-            135deg,
-            #f0d17d,
-            #a97a24
-        );
+        /* =========================
+           MOBILE
+        ========================= */
 
-    color: #151008;
+        @media (max-width: 600px) {
 
-    font-weight: bold;
+            header {
+                padding: 40px 15px;
+            }
 
-    cursor: pointer;
+            .logo {
+                letter-spacing: 4px;
+            }
 
-    transition: .25s;
-}
+            .catalogo {
+                grid-template-columns: 1fr;
+                padding: 0 15px;
+            }
 
-.btn:hover {
-    transform: translateY(-3px);
-    filter: brightness(1.1);
-}
+            .imagem-container {
+                height: 420px;
+            }
 
-/* ================= CATÁLOGO ================= */
+            .nome {
+                font-size: 21px;
+            }
 
-.catalogo {
-    width: 92%;
-    max-width: 1200px;
+        }
 
-    margin: auto;
-
-    padding: 80px 0;
-}
-
-.titulo {
-    text-align: center;
-
-    font-family: Georgia, serif;
-
-    font-size: 42px;
-
-    color: #f0d17d;
-
-    margin-bottom: 10px;
-}
-
-.subtitulo {
-    text-align: center;
-
-    color: #aaa;
-
-    margin-bottom: 40px;
-}
-
-/* ================= FILTROS ================= */
-
-.filtros {
-    display: flex;
-
-    gap: 15px;
-
-    margin-bottom: 35px;
-
-    flex-wrap: wrap;
-}
-
-.filtros input,
-.filtros select {
-
-    padding: 14px;
-
-    border-radius: 10px;
-
-    border: 1px solid #59451f;
-
-    background: #12100d;
-
-    color: white;
-
-    outline: none;
-}
-
-.filtros input {
-    flex: 1;
-    min-width: 250px;
-}
-
-/* ================= GRID ================= */
-
-.produtos {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 25px;
-}
-
-/* ================= CARD ================= */
-
-.card {
-
-    background:
-        linear-gradient(
-            180deg,
-            #15130f,
-            #0d0c0a
-        );
-
-    border:
-
-        1px solid rgba(
-            215,
-            173,
-            85,
-            .3
-        );
-
-    border-radius: 20px;
-
-    overflow: hidden;
-
-    transition: .3s;
-
-    box-shadow:
-        0 15px 40px
-        rgba(0,0,0,.35);
-}
-
-.card:hover {
-
-    transform:
-        translateY(-7px);
-
-    border-color:
-        #d7ad55;
-}
-
-.card-img {
-
-    width: 100%;
-
-    aspect-ratio: 4/5;
-
-    overflow: hidden;
-}
-
-.card-img img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: cover;
-
-    transition: .4s;
-}
-
-.card:hover img {
-
-    transform:
-        scale(1.04);
-}
-
-.card-info {
-
-    padding: 22px;
-}
-
-.marca {
-
-    color: #e2bd67;
-
-    text-transform:
-        uppercase;
-
-    letter-spacing: 2px;
-
-    font-size: 12px;
-}
-
-.card h3 {
-
-    font-family:
-        Georgia, serif;
-
-    font-size: 24px;
-
-    margin:
-        8px 0;
-}
-
-.tipo {
-
-    color: #aaa;
-
-    font-size: 14px;
-}
-
-.notas {
-
-    color: #ccc;
-
-    font-size: 14px;
-
-    line-height: 1.6;
-
-    margin:
-        15px 0;
-}
-
-.acoes {
-
-    display: flex;
-
-    gap: 10px;
-}
-
-.btn-detalhes {
-
-    flex: 1;
-}
-
-.btn-whatsapp {
-
-    background: transparent;
-
-    color: #e6c56e;
-
-    flex: 1;
-}
-
-/* ================= SOBRE ================= */
-
-.sobre {
-
-    border-top:
-        1px solid #352a17;
-
-    border-bottom:
-        1px solid #352a17;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(215,173,85,.08),
-            transparent
-        );
-
-    padding: 70px 20px;
-
-    text-align: center;
-}
-
-.sobre h2 {
-
-    font-family:
-        Georgia, serif;
-
-    color:
-        #e5c477;
-
-    font-size: 38px;
-
-    margin-bottom: 15px;
-}
-
-.sobre p {
-
-    max-width: 700px;
-
-    margin: auto;
-
-    color: #aaa;
-
-    line-height: 1.7;
-}
-
-/* ================= MODAL ================= */
-
-.modal {
-
-    position: fixed;
-
-    inset: 0;
-
-    background:
-        rgba(0,0,0,.85);
-
-    display: none;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 20px;
-
-    z-index: 999;
-}
-
-.modal.ativo {
-
-    display: flex;
-}
-
-.modal-box {
-
-    width: 900px;
-
-    max-width: 100%;
-
-    max-height: 90vh;
-
-    overflow: auto;
-
-    background: #11100e;
-
-    border:
-        1px solid #d5ad54;
-
-    border-radius: 20px;
-
-    position: relative;
-}
-
-.fechar {
-
-    position: absolute;
-
-    top: 10px;
-
-    right: 15px;
-
-    width: 40px;
-
-    height: 40px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    background: #000;
-
-    color: white;
-
-    font-size: 25px;
-
-    cursor: pointer;
-
-    z-index: 2;
-}
-
-.modal-conteudo {
-
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-}
-
-.modal-conteudo img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: cover;
-}
-
-.modal-texto {
-
-    padding: 40px;
-}
-
-.modal-texto h2 {
-
-    font-family:
-        Georgia, serif;
-
-    color:
-        #e6c777;
-
-    font-size: 35px;
-
-    margin:
-        10px 0 15px;
-}
-
-/* ================= FOOTER ================= */
-
-footer {
-
-    padding: 35px;
-
-    text-align: center;
-
-    color: #777;
-
-    font-size: 14px;
-}
-
-/* ================= RESPONSIVO ================= */
-
-@media(max-width: 900px) {
-
-    .produtos {
-
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
-
-    .modal-conteudo {
-
-        grid-template-columns:
-            1fr;
-    }
-
-}
-
-@media(max-width: 600px) {
-
-    .produtos {
-
-        grid-template-columns:
-            1fr;
-    }
-
-    .hero {
-
-        padding: 25px;
-    }
-
-    .catalogo {
-
-        padding:
-            50px 0;
-    }
-
-}
-
-</style>
+    </style>
 </head>
-
 
 <body>
 
-
-<!-- ================= HERO ================= -->
+<!-- =========================
+     CABEÇALHO
+========================= -->
 
 <header>
 
-<div class="hero">
+    <div class="logo">
+        PERFUMES
+    </div>
 
-<div class="hero-small">
-Catálogo exclusivo
-</div>
+    <div class="subtitulo">
+        CATÁLOGO PREMIUM
+    </div>
 
-<h1>
-Perfumes
-</h1>
-
-<p>
-Mais que um perfume, é uma atitude.
-<br>
-Descubra fragrâncias marcantes,
-sofisticadas e perfeitas para cada ocasião.
-</p>
-
-<a href="#catalogo" class="btn">
-Ver catálogo
-</a>
-
-</div>
+    <div class="frase">
+        "Mais que um perfume, é uma atitude!"
+    </div>
 
 </header>
 
 
-<!-- ================= CATÁLOGO ================= -->
+<!-- =========================
+     BUSCA
+========================= -->
 
-<section
-class="catalogo"
-id="catalogo"
->
+<div class="controles">
 
-<h2 class="titulo">
-Nossa coleção
-</h2>
+    <input
+        type="text"
+        id="busca"
+        class="busca"
+        placeholder="🔎 Procurar perfume..."
+        onkeyup="filtrarProdutos()"
+    >
 
-<p class="subtitulo">
-Escolha sua fragrância favorita
-</p>
-
-
-<!-- FILTROS -->
-
-<div class="filtros">
-
-<input
-type="text"
-id="pesquisa"
-placeholder="🔎 Buscar perfume ou marca..."
->
-
-<select id="filtro">
-
-<option value="todos">
-Todos
-</option>
-
-<option value="Masculino">
-Masculino
-</option>
-
-<option value="Feminino">
-Feminino
-</option>
-
-<option value="Unissex">
-Unissex
-</option>
-
-</select>
+    <select
+        id="filtro"
+        class="filtro"
+        onchange="filtrarProdutos()"
+    >
+        <option value="todos">Todos os perfumes</option>
+        <option value="feminino">Femininos</option>
+        <option value="masculino">Masculinos</option>
+        <option value="unissex">Unissex</option>
+    </select>
 
 </div>
 
 
-<!-- PRODUTOS -->
+<!-- =========================
+     PRODUTOS
+========================= -->
 
-<div
-class="produtos"
-id="produtos"
->
-</div>
-
-</section>
+<main class="catalogo" id="catalogo">
 
 
-<!-- ================= SOBRE ================= -->
+    <!-- YARA -->
 
-<section class="sobre">
+    <article class="produto" data-categoria="feminino">
 
-<h2>
-Elegância em cada detalhe
-</h2>
+        <div class="imagem-container">
 
-<p>
-Uma seleção especial de perfumes e fragrâncias
-para quem gosta de deixar sua marca.
-Encontre aromas sofisticados, marcantes e
-perfeitos para diferentes momentos.
-</p>
+            <img
+                src="imagens/yara.jpg"
+                alt="Yara Lattafa"
+                onerror="this.src='imagens/sem-imagem.jpg'"
+            >
 
-</section>
+        </div>
+
+        <div class="informacoes">
+
+            <div class="marca">
+                LATTAFA
+            </div>
+
+            <h2 class="nome">
+                Yara
+            </h2>
+
+            <p class="descricao">
+                Eau de Parfum • 100ml
+            </p>
+
+            <div class="preco">
+                R$ 290,00
+            </div>
+
+            <a
+                class="btn-whatsapp"
+                href="https://wa.me/5547988663252?text=Olá!%20Tenho%20interesse%20no%20perfume%20Yara%20Lattafa%20por%20R$%20290,00."
+                target="_blank"
+            >
+                💬 Comprar pelo WhatsApp
+            </a>
+
+        </div>
+
+    </article>
 
 
-<!-- ================= FOOTER ================= -->
+    <!-- BRAND 105 -->
+
+    <article class="produto" data-categoria="feminino">
+
+        <div class="imagem-container">
+
+            <img
+                src="imagens/brand-105.jpg"
+                alt="Brand Collection Nº 105 Billionairess"
+                onerror="this.src='imagens/sem-imagem.jpg'"
+            >
+
+        </div>
+
+        <div class="informacoes">
+
+            <div class="marca">
+                BRAND COLLECTION
+            </div>
+
+            <h2 class="nome">
+                Brand Nº 105
+            </h2>
+
+            <p class="descricao">
+                Billionairess • 25ml • Eau de Parfum
+            </p>
+
+            <div class="preco">
+                R$ 100,00
+            </div>
+
+            <a
+                class="btn-whatsapp"
+                href="https://wa.me/5547988663252?text=Olá!%20Tenho%20interesse%20no%20perfume%20Brand%20Nº%20105%20Billionairess%20por%20R$%20100,00."
+                target="_blank"
+            >
+                💬 Comprar pelo WhatsApp
+            </a>
+
+        </div>
+
+    </article>
+
+
+    <!-- BRAND 483 -->
+
+    <article class="produto" data-categoria="feminino">
+
+        <div class="imagem-container">
+
+            <img
+                src="imagens/brand-483.jpg"
+                alt="Brand Collection Nº 483"
+                onerror="this.src='imagens/sem-imagem.jpg'"
+            >
+
+        </div>
+
+        <div class="informacoes">
+
+            <div class="marca">
+                BRAND COLLECTION
+            </div>
+
+            <h2 class="nome">
+                Brand Nº 483
+            </h2>
+
+            <p class="descricao">
+                Eau de Parfum
+            </p>
+
+            <div class="preco">
+                R$ 100,00
+            </div>
+
+            <a
+                class="btn-whatsapp"
+                href="https://wa.me/5547988663252?text=Olá!%20Tenho%20interesse%20no%20perfume%20Brand%20Nº%20483%20por%20R$%20100,00."
+                target="_blank"
+            >
+                💬 Comprar pelo WhatsApp
+            </a>
+
+        </div>
+
+    </article>
+
+
+    <!-- BRAND 322 -->
+
+    <article class="produto" data-categoria="feminino">
+
+        <div class="imagem-container">
+
+            <img
+                src="imagens/brand-322.jpg"
+                alt="Brand Collection Nº 322 Lady Night"
+                onerror="this.src='imagens/sem-imagem.jpg'"
+            >
+
+        </div>
+
+        <div class="informacoes">
+
+            <div class="marca">
+                BRAND COLLECTION
+            </div>
+
+            <h2 class="nome">
+                Brand Nº 322
+            </h2>
+
+            <p class="descricao">
+                Lady Night • 25ml • Eau de Parfum
+            </p>
+
+            <div class="preco">
+                R$ 100,00
+            </div>
+
+            <a
+                class="btn-whatsapp"
+                href="https://wa.me/5547988663252?text=Olá!%20Tenho%20interesse%20no%20perfume%20Brand%20Nº%20322%20Lady%20Night%20por%20R$%20100,00."
+                target="_blank"
+            >
+                💬 Comprar pelo WhatsApp
+            </a>
+
+        </div>
+
+    </article>
+
+
+    <!-- AQUILO MUSK -->
+
+    <article class="produto" data-categoria="masculino">
+
+        <div class="imagem-container">
+
+            <img
+                src="imagens/aquilo-musk.jpg"
+                alt="Aquilo Musk Lattafa"
+                onerror="this.src='imagens/sem-imagem.jpg'"
+            >
+
+        </div>
+
+        <div class="informacoes">
+
+            <div class="marca">
+                LATTAFA
+            </div>
+
+            <h2 class="nome">
+                Aquilo Musk
+            </h2>
+
+            <p class="descricao">
+                Eau de Parfum • Fragrância marcante
+            </p>
+
+            <div class="preco">
+                R$ 360,00
+            </div>
+
+            <a
+                class="btn-whatsapp"
+                href="https://wa.me/5547988663252?text=Olá!%20Tenho%20interesse%20no%20perfume%20Aquilo%20Musk%20por%20R$%20360,00."
+                target="_blank"
+            >
+                💬 Comprar pelo WhatsApp
+            </a>
+
+        </div>
+
+    </article>
+
+
+    <!-- HONOR & GLORY -->
+
+    <article class="produto" data-categoria="unissex">
+
+        <div class="imagem-container">
+
+            <img
+                src="imagens/honor-glory.jpg"
+                alt="Honor & Glory"
+                onerror="this.src='imagens/sem-imagem.jpg'"
+            >
+
+        </div>
+
+        <div class="informacoes">
+
+            <div class="marca">
+                LATTAFA
+            </div>
+
+            <h2 class="nome">
+                Honor & Glory
+            </h2>
+
+            <p class="descricao">
+                Eau de Parfum
+            </p>
+
+            <div class="preco">
+                R$ 45,00
+            </div>
+
+            <a
+                class="btn-whatsapp"
+                href="https://wa.me/5547988663252?text=Olá!%20Tenho%20interesse%20no%20perfume%20Honor%20%26%20Glory%20por%20R$%2045,00."
+                target="_blank"
+            >
+                💬 Comprar pelo WhatsApp
+            </a>
+
+        </div>
+
+    </article>
+
+
+    <!-- FAKHAR -->
+
+    <article class="produto" data-categoria="masculino">
+
+        <div class="imagem-container">
+
+            <img
+                src="imagens/fakhar.jpg"
+                alt="Fakhar Lattafa"
+                onerror="this.src='imagens/sem-imagem.jpg'"
+            >
+
+        </div>
+
+        <div class="informacoes">
+
+            <div class="marca">
+                LATTAFA
+            </div>
+
+            <h2 class="nome">
+                Fakhar
+            </h2>
+
+            <p class="descricao">
+                Pride of Lattafa • Eau de Parfum • 100ml
+            </p>
+
+            <div class="preco">
+                R$ 310,00
+            </div>
+
+            <a
+                class="btn-whatsapp"
+                href="https://wa.me/5547988663252?text=Olá!%20Tenho%20interesse%20no%20perfume%20Fakhar%20Lattafa%20por%20R$%20310,00."
+                target="_blank"
+            >
+                💬 Comprar pelo WhatsApp
+            </a>
+
+        </div>
+
+    </article>
+
+
+    <!-- MAISON ALHAMBRA -->
+
+    <article class="produto" data-categoria="masculino">
+
+        <div class="imagem-container">
+
+            <img
+                src="imagens/maison-alhambra.jpg"
+                alt="Maison Alhambra Opulence Leather"
+                onerror="this.src='imagens/sem-imagem.jpg'"
+            >
+
+        </div>
+
+        <div class="informacoes">
+
+            <div class="marca">
+                MAISON ALHAMBRA
+            </div>
+
+            <h2 class="nome">
+                Opulence Leather
+            </h2>
+
+            <p class="descricao">
+                Eau de Parfum • 30ml
+            </p>
+
+            <div class="preco">
+                R$ 100,00
+            </div>
+
+            <a
+                class="btn-whatsapp"
+                href="https://wa.me/5547988663252?text=Olá!%20Tenho%20interesse%20no%20Maison%20Alhambra%20Opulence%20Leather%20por%20R$%20100,00."
+                target="_blank"
+            >
+                💬 Comprar pelo WhatsApp
+            </a>
+
+        </div>
+
+    </article>
+
+
+    <!-- ULRIC DE VARENS -->
+
+    <article class="produto" data-categoria="masculino">
+
+        <div class="imagem-container">
+
+            <img
+                src="imagens/ulric-de-varens.jpg"
+                alt="Ulric de Varens UDV For Men"
+                onerror="this.src='imagens/sem-imagem.jpg'"
+            >
+
+        </div>
+
+        <div class="informacoes">
+
+            <div class="marca">
+                ULRIC DE VARENS
+            </div>
+
+            <h2 class="nome">
+                UDV For Men Nº 100
+            </h2>
+
+            <p class="descricao">
+                Eau de Toilette • 100ml
+            </p>
+
+            <div class="preco">
+                R$ 150,00
+            </div>
+
+            <a
+                class="btn-whatsapp"
+                href="https://wa.me/5547988663252?text=Olá!%20Tenho%20interesse%20no%20Ulric%20de%20Varens%20UDV%20For%20Men%20Nº%20100%20por%20R$%20150,00."
+                target="_blank"
+            >
+                💬 Comprar pelo WhatsApp
+            </a>
+
+        </div>
+
+    </article>
+
+
+    <!-- CLUB DE NUIT -->
+
+    <article class="produto" data-categoria="masculino">
+
+        <div class="imagem-container">
+
+            <img
+                src="imagens/club-de-nuit.jpg"
+                alt="Club de Nuit Intense Man"
+                onerror="this.src='imagens/sem-imagem.jpg'"
+            >
+
+        </div>
+
+        <div class="informacoes">
+
+            <div class="marca">
+                ARMAF
+            </div>
+
+            <h2 class="nome">
+                Club de Nuit Intense Man
+            </h2>
+
+            <p class="descricao">
+                Eau de Toilette • 105ml
+            </p>
+
+            <div class="preco">
+                R$ 280,00
+            </div>
+
+            <a
+                class="btn-whatsapp"
+                href="https://wa.me/5547988663252?text=Olá!%20Tenho%20interesse%20no%20Club%20de%20Nuit%20Intense%20Man%20por%20R$%20280,00."
+                target="_blank"
+            >
+                💬 Comprar pelo WhatsApp
+            </a>
+
+        </div>
+
+    </article>
+
+
+    <!-- AMEERAT -->
+
+    <article class="produto" data-categoria="feminino">
+
+        <div class="imagem-container">
+
+            <img
+                src="imagens/ameerat.jpg"
+                alt="Ameerat Al Arab Asdaaf"
+                onerror="this.src='imagens/sem-imagem.jpg'"
+            >
+
+        </div>
+
+        <div class="informacoes">
+
+            <div class="marca">
+                ASDAAF
+            </div>
+
+            <h2 class="nome">
+                Ameerat Al Arab
+            </h2>
+
+            <p class="descricao">
+                Eau de Parfum • 100ml
+            </p>
+
+            <div class="preco">
+                R$ 250,00
+            </div>
+
+            <a
+                class="btn-whatsapp"
+                href="https://wa.me/5547988663252?text=Olá!%20Tenho%20interesse%20no%20Ameerat%20Al%20Arab%20Asdaaf%20por%20R$%20250,00."
+                target="_blank"
+            >
+                💬 Comprar pelo WhatsApp
+            </a>
+
+        </div>
+
+    </article>
+
+
+    <!-- PRIVÉ ROSE -->
+
+    <article class="produto" data-categoria="feminino">
+
+        <div class="imagem-container">
+
+            <img
+                src="imagens/prive-rose.jpg"
+                alt="Ameerat Al Arab Privé Rose"
+                onerror="this.src='imagens/sem-imagem.jpg'"
+            >
+
+        </div>
+
+        <div class="informacoes">
+
+            <div class="marca">
+                PRIVÉ ROSE
+            </div>
+
+            <h2 class="nome">
+                Ameerat Al Arab Privé Rose
+            </h2>
+
+            <p class="descricao">
+                Perfumed Spray • 200ml
+            </p>
+
+            <div class="preco">
+                R$ 45,00
+            </div>
+
+            <a
+                class="btn-whatsapp"
+                href="https://wa.me/5547988663252?text=Olá!%20Tenho%20interesse%20no%20Ameerat%20Al%20Arab%20Privé%20Rose%20por%20R$%2045,00."
+                target="_blank"
+            >
+                💬 Comprar pelo WhatsApp
+            </a>
+
+        </div>
+
+    </article>
+
+
+</main>
+
+
+<!-- =========================
+     RODAPÉ
+========================= -->
 
 <footer>
 
-© 2026 • Catálogo de Perfumes
+    <p>
+        © 2026 <strong>Catálogo de Perfumes</strong>
+    </p>
+
+    <p style="margin-top:10px;">
+        Pedidos e informações pelo WhatsApp:
+        <strong>(47) 98866-3252</strong>
+    </p>
 
 </footer>
 
 
-<!-- ================= MODAL ================= -->
-
-<div
-class="modal"
-id="modal"
->
-
-<div class="modal-box">
-
-<button
-class="fechar"
-onclick="fecharModal()"
->
-×
-</button>
-
-<div class="modal-conteudo">
-
-<img
-id="modalImagem"
-src=""
->
-
-<div class="modal-texto">
-
-<div
-id="modalMarca"
-class="marca"
->
-</div>
-
-<h2
-id="modalNome"
->
-</h2>
-
-<p
-id="modalTipo"
-class="tipo"
->
-</p>
-
-<p
-id="modalNotas"
-class="notas"
->
-</p>
-
-<a
-id="modalWhatsapp"
-class="btn"
-target="_blank"
->
-Comprar pelo WhatsApp
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
+<!-- =========================
+     JAVASCRIPT
+========================= -->
 
 <script>
 
+function filtrarProdutos() {
 
-/* ==================================================
-   PRODUTOS
-================================================== */
+    const busca =
+        document
+        .getElementById("busca")
+        .value
+        .toLowerCase();
 
+    const categoria =
+        document
+        .getElementById("filtro")
+        .value;
 
-const produtos = [
+    const produtos =
+        document.querySelectorAll(".produto");
 
-{
-nome:
-"UDV For Men Nº 100",
 
-marca:
-"Ulric de Varens",
+    produtos.forEach(function(produto) {
 
-tipo:
-"Eau de Toilette • 100 ml • Masculino",
+        const nome =
+            produto
+            .querySelector(".nome")
+            .textContent
+            .toLowerCase();
 
-genero:
-"Masculino",
+        const marca =
+            produto
+            .querySelector(".marca")
+            .textContent
+            .toLowerCase();
 
-imagem:
-"ulric-de-varens.jpg",
+        const categoriaProduto =
+            produto.dataset.categoria;
 
-notas:
-"Bergamota, limão, lavanda e hortelã • Lavanda, gerânio, pimenta e especiarias • Sândalo, cedro, musgo de carvalho e âmbar"
-},
 
+        const correspondeBusca =
+            nome.includes(busca) ||
+            marca.includes(busca);
 
-{
-nome:
-"Club de Nuit Intense Man Nº 105",
+        const correspondeCategoria =
+            categoria === "todos" ||
+            categoriaProduto === categoria;
 
-marca:
-"Armaf",
 
-tipo:
-"Eau de Toilette • 105 ml • Masculino",
+        if (
+            correspondeBusca &&
+            correspondeCategoria
+        ) {
 
-genero:
-"Masculino",
+            produto.style.display = "";
 
-imagem:
-"club-de-nuit-intense-man.jpg",
+        } else {
 
-notas:
-"Bergamota, limão, abacaxi, maçã e groselha preta • Rosa, jasmim, bétula e patchouli • Baunilha, almíscar, âmbar cinza, madeira de cedro e patchouli"
-},
+            produto.style.display = "none";
 
+        }
 
-{
-nome:
-"Opulence Leather Nº 1",
-
-marca:
-"Maison Alhambra",
-
-tipo:
-"Eau de Parfum • 30 ml • Masculino",
-
-genero:
-"Masculino",
-
-imagem:
-"maison-alhambra-opulence-leather.jpg",
-
-notas:
-"Pimenta rosa, bergamota e pimenta preta • Jasmim, cedro e patchouli • Couro, âmbar e madeira de oud"
-},
-
-
-{
-nome:
-"Honor & Glory Nº 104",
-
-marca:
-"Lattafa",
-
-tipo:
-"Eau de Parfum • 200 ml • Unissex",
-
-genero:
-"Unissex",
-
-imagem:
-"honor-glory.jpg",
-
-notas:
-"Bergamota, abacaxi, maçã e pimenta rosa • Jasmim, cedro e patchouli • Âmbar, baunilha e madeira de agar (oud)"
-},
-
-
-{
-nome:
-"Fakhar",
-
-marca:
-"Lattafa",
-
-tipo:
-"Eau de Parfum • 100 ml • Masculino",
-
-genero:
-"Masculino",
-
-imagem:
-"fakhar-lattafa.jpg",
-
-notas:
-"Bergamota, íris e notas marinhas • Violeta e âmbar • Musgo de carvalho e patchouli"
-},
-
-
-{
-nome:
-"Lady Night Nº 322",
-
-marca:
-"Brand Collection",
-
-tipo:
-"Eau de Parfum • 25 ml • Feminino",
-
-genero:
-"Feminino",
-
-imagem:
-"brand-lady-night.jpg",
-
-notas:
-"Frutas vermelhas, pera e bergamota • Jasmim, flor de laranjeira e amêndoa • Baunilha, fava tonka e madeira de cacau"
-},
-
-
-{
-nome:
-"Ameerat Al Arab Privé Rose",
-
-marca:
-"Lattafa",
-
-tipo:
-"Eau de Parfum • 100 ml + spray 200 ml • Feminino",
-
-genero:
-"Feminino",
-
-imagem:
-"ameerat-al-arab-prive-rose.jpg",
-
-notas:
-"Bergamota e mandarina • Rosa Turca Precious e jasmim Sambac • Âmbar dourado, almíscar branco suave e madeiras nobres"
-},
-
-
-{
-nome:
-"Chance Purple Body Splash Nº 483",
-
-marca:
-"Brand Collection",
-
-tipo:
-"Body Splash • 250 ml • Feminino",
-
-genero:
-"Feminino",
-
-imagem:
-"chance-purple-body-splash.jpg",
-
-notas:
-"Lavanda e mandarina • Cassis e jasmim Sambac • Musk e âmbar"
-},
-
-
-{
-nome:
-"Ameerat Al Arab Asdaaf",
-
-marca:
-"Lattafa",
-
-tipo:
-"Eau de Parfum • 100 ml • Feminino",
-
-genero:
-"Feminino",
-
-imagem:
-"ameerat-al-arab-asdaaf.jpg",
-
-notas:
-"Frutas cítricas e bergamota • Rosa, jasmim e lírio • Almíscar, âmbar e madeiras"
-},
-
-
-{
-nome:
-"Yara",
-
-marca:
-"Lattafa",
-
-tipo:
-"Eau de Parfum • 100 ml • Feminino",
-
-genero:
-"Feminino",
-
-imagem:
-"yara-lattafa.jpg",
-
-notas:
-"Baunilha, coco e melão • Notas florais brancas e magnólia • Almíscar, sândalo e framboesa"
-},
-
-
-{
-nome:
-"Aquilo Musk",
-
-marca:
-"Lattafa",
-
-tipo:
-"Eau de Parfum • 100 ml • Masculino",
-
-genero:
-"Masculino",
-
-imagem:
-"aquilo-musk.jpg",
-
-notas:
-"Bergamota, especiarias e notas amadeiradas • Lavanda, âmbar e madeira • Baunilha, musk e couro"
-},
-
-
-{
-nome:
-"Billionairess Nº 105",
-
-marca:
-"Brand Collection",
-
-tipo:
-"Eau de Parfum • 25 ml • Feminino",
-
-genero:
-"Feminino",
-
-imagem:
-"billionairess.jpg",
-
-notas:
-"Frutas, pêssego e laranja • Jasmim, baunilha e flor de laranjeira • Musk, âmbar e madeiras"
-}
-
-];
-
-
-/* ==================================================
-   WHATSAPP
-================================================== */
-
-
-/*
-COLOQUE SEU NÚMERO AQUI.
-
-Exemplo:
-
-const whatsapp =
-"5543999999999";
-
-*/
-
-const whatsapp =
-"";
-
-
-/* ==================================================
-   MOSTRAR PRODUTOS
-================================================== */
-
-
-const lista =
-document.getElementById("produtos");
-
-
-function mostrarProdutos(listaProdutos) {
-
-lista.innerHTML = "";
-
-
-listaProdutos.forEach((produto, index) => {
-
-lista.innerHTML += `
-
-<article class="card">
-
-
-<div class="card-img">
-
-<img
-src="imagens/${produto.imagem}"
-alt="${produto.nome}"
-loading="lazy"
->
-
-</div>
-
-
-<div class="card-info">
-
-
-<div class="marca">
-
-${produto.marca}
-
-</div>
-
-
-<h3>
-
-${produto.nome}
-
-</h3>
-
-
-<div class="tipo">
-
-${produto.tipo}
-
-</div>
-
-
-<div class="notas">
-
-<strong>
-Notas:
-</strong>
-
-${produto.notas}
-
-</div>
-
-
-<div class="acoes">
-
-
-<button
-class="btn btn-detalhes"
-onclick="abrirModal(${index})"
->
-
-Ver detalhes
-
-</button>
-
-
-<a
-class="btn btn-whatsapp"
-href="${linkWhatsApp(produto)}"
-target="_blank"
-onclick="verificarWhatsApp(event)"
->
-
-Comprar
-
-</a>
-
-
-</div>
-
-
-</div>
-
-</article>
-
-`;
-
-});
+    });
 
 }
-
-
-/* ==================================================
-   WHATSAPP
-================================================== */
-
-
-function linkWhatsApp(produto) {
-
-const mensagem =
-encodeURIComponent(
-`Olá! Tenho interesse no perfume ${produto.nome}.`
-);
-
-if (!whatsapp) {
-
-return "#";
-
-}
-
-return `https://wa.me/${whatsapp}?text=${mensagem}`;
-
-}
-
-
-function verificarWhatsApp(event) {
-
-if (!whatsapp) {
-
-event.preventDefault();
-
-alert(
-"Coloque seu número de WhatsApp no código para ativar o botão de compra."
-);
-
-}
-
-}
-
-
-/* ==================================================
-   MODAL
-================================================== */
-
-
-function abrirModal(index) {
-
-const produto =
-produtos[index];
-
-
-document.getElementById(
-"modalImagem"
-).src =
-"imagens/" +
-produto.imagem;
-
-
-document.getElementById(
-"modalMarca"
-).textContent =
-produto.marca;
-
-
-document.getElementById(
-"modalNome"
-).textContent =
-produto.nome;
-
-
-document.getElementById(
-"modalTipo"
-).textContent =
-produto.tipo;
-
-
-document.getElementById(
-"modalNotas"
-).innerHTML =
-"<strong>Notas olfativas:</strong><br>" +
-produto.notas;
-
-
-document.getElementById(
-"modalWhatsapp"
-).href =
-linkWhatsApp(produto);
-
-
-document.getElementById(
-"modal"
-).classList.add("ativo");
-
-}
-
-
-function fecharModal() {
-
-document.getElementById(
-"modal"
-).classList.remove("ativo");
-
-}
-
-
-/* ==================================================
-   PESQUISA
-================================================== */
-
-
-const pesquisa =
-document.getElementById("pesquisa");
-
-
-const filtro =
-document.getElementById("filtro");
-
-
-function filtrar() {
-
-const texto =
-pesquisa.value
-.toLowerCase()
-.trim();
-
-
-const genero =
-filtro.value;
-
-
-const resultado =
-produtos.filter(produto => {
-
-
-const correspondeTexto =
-
-(
-produto.nome +
-" " +
-produto.marca +
-" " +
-produto.tipo
-)
-
-.toLowerCase()
-.includes(texto);
-
-
-const correspondeGenero =
-
-genero === "todos" ||
-produto.genero === genero;
-
-
-return
-correspondeTexto &&
-correspondeGenero;
-
-});
-
-
-mostrarProdutos(resultado);
-
-}
-
-
-pesquisa.addEventListener(
-"input",
-filtrar
-);
-
-
-filtro.addEventListener(
-"change",
-filtrar
-);
-
-
-/* ==================================================
-   ESC
-================================================== */
-
-
-document.addEventListener(
-"keydown",
-(event) => {
-
-if (event.key === "Escape") {
-
-fecharModal();
-
-}
-
-}
-);
-
-
-/* ==================================================
-   INICIAR
-================================================== */
-
-
-mostrarProdutos(produtos);
-
 
 </script>
 
